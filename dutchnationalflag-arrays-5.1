@@ -1,0 +1,18 @@
+void DutchNationalFlag(vector<int> arr, int pivot) {
+	int s = 0;
+	int e = 0;
+	int l = arr.size() - 1;
+
+	while (e < l) {
+		if (arr[e] < pivot) {
+			swap(arr[e], arr[s]);
+			s++;
+			e++;
+		} else if (e == pivot) {
+			e++;
+		} else {
+			swap(arr[e], arr[l]);
+			l--;
+		}
+	}
+}
