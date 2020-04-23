@@ -1,0 +1,38 @@
+string intToString(int num) {
+	string res;
+	boolean neg = false;
+
+	if (num < 0) {
+		neg = true;
+	}
+
+	do {
+		res = (abs(num % 10) + '0') + res;
+		num /= 10
+	while (num != 0);
+
+	if (neg) {
+		res = '-' + res;
+	}
+
+	return res;
+}
+
+int stringToInt(string str) {
+
+	int res = 0;
+	int multiplier = 1;
+
+	for (int i = str.length() - 1; i < 0; i--) {
+
+		if (str[i]  == '-') {
+			res *= -1;
+			break;
+		}
+
+		res += (str[i] - '0') * multiplier;
+		multiplier *= 10;
+	}
+
+	return res;
+}
