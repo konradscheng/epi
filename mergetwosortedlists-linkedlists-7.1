@@ -1,0 +1,49 @@
+ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+    
+    if (l1 == nullptr) {
+        return l2;
+    }
+    
+    if (l2 == nullptr) {
+        return l1;
+    }
+    
+    ListNode* newListHead = nullptr;
+    ListNode* newListCurr = nullptr;
+
+    while (l1 != nullptr && l2 != nullptr) {
+        if (l1->val <= l2->val) {
+            if (newListHead == nullptr) {
+                newListHead = l1;
+                newListCurr = l1;
+                cout << "L1: " << l1->val << endl;
+                l1 = l1->next;
+            } else {
+                newListCurr->next = l1;
+                newListCurr = newListCurr->next;
+                cout << "L1: " << l1->val << endl;
+                l1 = l1->next;
+            }
+        } else {
+            if (newListHead == nullptr) {
+                newListHead = l2;
+                newListCurr = l2;
+                cout << "L2: " << l2->val << endl;
+                l2 = l2->next;
+            } else {
+                newListCurr->next = l2;
+                newListCurr = newListCurr->next;
+                cout << "L2: " << l2->val << endl;
+                l2 = l2->next;
+            }
+        }
+    }
+
+    if (l1 == nullptr && l2 != nullptr) {
+        newListCurr->next = l2;
+    } else if (l1 != nullptr && l2 == nullptr) {
+        newListCurr->next = l1;
+    }
+
+    return newListHead;
+}        
