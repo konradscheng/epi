@@ -1,0 +1,27 @@
+/* the one on epi seemed pretty complicated so I decided to do a simplified version on leetcode instead*/
+string convertToBase7(int num) {
+    
+    if (num == 0) {
+        return "0";
+    }
+    
+    string s = "";
+    bool isNeg = false;
+    if (num < 0) {
+        isNeg = true;
+        num *= -1;
+    }
+    
+    while (num != 0) {
+        s += to_string(num % 7);
+        num /= 7;
+    }
+    
+    reverse(s.begin(), s.end());
+    
+    if (isNeg) {
+        s = '-' + s;
+    }
+    
+    return s;
+}
