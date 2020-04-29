@@ -1,0 +1,35 @@
+int RreplaceAndRemove(int size, char s[]) {
+	int writeIndex = 0;
+	int numAs = 0;
+
+	for (int i = 0; i < size; i++) {
+		if (s[i] != 'b') {
+			s[writeIndex] = s[i];
+			writeIndex++;
+		}
+
+		if (s[i] == 'a') {
+			numAs++;
+		}
+	}
+
+	int currIndex = writeIndex - 1;
+	writeIndex = writeIndex + numAs - 1;
+	int finalSize = writeIndex + 1;
+
+	while (currIndex >= 0) {
+		if (s[currIndex] == 'a') {
+			s[writeIndex] = 'd';
+			writeIndex--;
+			s[writeIndex] = 'd';
+			writeIndex--;
+		} else {
+			s[writeIndex] = s[currIndex];
+			writeIndex--;
+		}
+
+		currIndex--;
+	}
+
+	return finalSize;
+}
