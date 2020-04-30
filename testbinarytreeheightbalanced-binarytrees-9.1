@@ -1,0 +1,39 @@
+struct IsBalancedSubTree {
+	bool isBalanced;
+	int height;
+}
+
+IsBalancedSubTree isBalancedHelper(BinaryTreeNode * node) {
+
+	if (node == nullptr) {
+		return {true, -1};
+	}
+
+	IsBalancedSubTree rightTree = isBalancedHelper(node->right);
+
+	if (!rightTree.isBalanced) {
+		return {false, 0};
+	}
+
+	IsBalancedSubTree leftTree = isBalancedHelper(node->left);
+
+	if (!leftTree.isBalanced) {
+		return {false, 0};
+	}
+
+	IsBalancedSubTree subtree;
+
+	subtree.height = max(leftTree.height, rightTree.height) + 1;
+
+	if (abs(leftTree.height - rightTree.height) <= 1) {
+		subtree.isBalanced = true;
+	} else {
+		subtree.isBalanced = false;
+	}
+
+	return subtree;
+}
+
+bool isBalanced(BinaryTreeNode * tree) {
+	return isBalancedHelper(tree).isBalanced;
+}
