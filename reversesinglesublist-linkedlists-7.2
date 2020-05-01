@@ -1,0 +1,24 @@
+ListNode* ReverseSublist(ListNode* L, int start, int finish) {
+	ListNode * dummy;
+	dummy->next = L;
+	dummy->val = 0;
+
+	ListNode * sublistHead = dummy;
+	int curr = 1;
+
+	while (curr < start) {
+		sublistHead = sublistHead->next;
+		curr++;
+	}
+
+	ListNode * currNode = sublistHead->next;
+	while (curr < finish) {
+		ListNode * temp = currNode->next;
+		currNode->next = temp->next;
+		temp->next = subListHead->next;
+		sublistHead->next = temp;
+		curr++;
+	}
+
+	return dummy->next;
+}
