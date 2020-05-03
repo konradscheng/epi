@@ -1,0 +1,32 @@
+vector<vector<int>> BinaryTreeDepthOrder(TreeNode * tree) {
+	vector<vector<int>> res;
+
+	if (tree == nullptr) {
+		return res;
+	}
+
+	queue<TreeNode*> currLevel;
+	currLevel.emplace(tree);
+
+	while (!currLevel.empty()) {
+		queue<TreeNode*> nextLevel;
+		vector<int> currLevelRes;
+		while (!currLevel.empty()) {
+			TreeNode * node = currLevel.pop();
+			currLevelRes.push_back(node->val);
+
+			if (node->left) {
+				nextLevel.emplace(currLevel->left);
+			}
+
+			if (node->right) {
+				nextLevel.emplace(currLevel->right);
+			}
+		}
+
+		res.push_back(currLevelRes);
+		nextLevel = currLevel;
+	}
+
+	return res;
+}
