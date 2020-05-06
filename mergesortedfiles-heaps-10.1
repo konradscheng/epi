@@ -1,0 +1,37 @@
+struct File {
+	vector<int> data;
+	int index;
+
+	bool comp(File a, File b) {
+	    return a.data[0] < b.data[0];
+	}
+}
+
+vector<int> MergeSortedArrays(vector<vector<int>>& sorted_arrays) {
+
+	vector<int> res;
+
+	priority_queue<File, vector<File>, comp> pq;
+
+	for (int i = 0; i < sorted_arrays.size(); i++) {
+		if (!sortedarrays[i].empty()) {
+			File file;
+			file.data = sortedarrays[i][0];
+			remove(sortedarrays[i].begin(), sortedarrays[i].end(), sortedarrays[i][0]);
+			file.index = i;
+			pq.emplace(file);
+		}
+	}
+
+	while (!pq.empty()) {
+		File top = pq.top();
+		pq.pop();
+		res.push_back(top.data[0]);
+		if (!sorted_arrays[top.index].empty()) {
+			pq.emplace(sortedarrays[top.index][0]);
+			remove(sortedarrays[top.index].begin(), sortedarrays[top.index].end(), sortedarrays[top.index][0]);
+		}
+	}
+
+	return res;
+}
