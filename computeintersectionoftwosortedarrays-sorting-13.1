@@ -1,0 +1,20 @@
+vector<int> IntersectTwoSortedArrays(vector<int>& A, vector<int>& B) {
+	vector<int> res;
+
+	int AIndex = 0;
+	int BIndex = 0;
+
+	while (AIndex < A.size() && BIndex < B.size()) {
+		if (A[AIndex] == B[BIndex] && (AIndex == 0 || A[AIndex] != A[AIndex - 1])) {
+			res.push(A[AIndex]);
+			AIndex++;
+			BIndex++;
+		} else if (A[AIndex] < B[BIndex]) {
+			AIndex++;
+		} else {
+			BIndex++;
+		}
+	}
+
+	return res;
+}

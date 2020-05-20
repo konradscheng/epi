@@ -1,0 +1,14 @@
+bool helper(TreeNode * node, int low, int high) {
+	if (node == nullptr) {
+		return true;
+	} else if (node->val < low || node->val > high) {
+		return false;
+	}
+
+	helper(node->left, low, node->val);
+	helper(node->right, node->val, high);
+}
+
+bool IsBinaryTreeBST(TreeNode * root) {
+	return helper(root, INT_MIN, INT_MAX);
+}

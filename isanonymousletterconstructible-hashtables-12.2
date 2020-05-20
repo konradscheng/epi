@@ -1,0 +1,21 @@
+bool IsLetterConstructibleFromMagazine(string letter_text, string magazine_text) {
+	map<char, int> magazineCounts;
+
+	for (int i = 0; i < magazine_text.length(); i++) {
+		if (magazineCounts.find(magazine_text[i]) == magazineCounts.end()) {
+			magazineCounts.insert(pair<char, int> (magazine_text[i], 1));
+		} else {
+			magazineCounts[magazine_text]++;
+		}
+	}
+
+	for (int i = 0; i < letter_text.length(); i++) {
+		if (magazineCounts.find(letter_text[i]) == magazineCounts.end() || magazineCounts.find(letter_text[i]) == 0) {
+			return false;
+		}
+
+		magazineCounts[letter_text[i]]--;
+	}
+
+	return true;
+}

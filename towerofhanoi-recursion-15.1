@@ -1,0 +1,25 @@
+const int kNumPegs = 3;
+
+void ComputeTowerHanoiSteps(int num_rings_to_move, vector<stack<int>> pegs, int from_peg, int to_peg, int use_peg, vector<vector<int>>& result) {
+	if (num_rings_to_move > 0) {
+		ComputeTowerHanoiSteps(num_rings_to_move - 1, pegs, from_peg, to_peg, use_peg, result);
+
+		pegs[to_peg].push(pegs[from_peg].top());
+		pegs[from_peg].pop();
+		result.push_back(vector<int> {from_peg, to_peg});
+
+		ComputeTowerHanoiSteps(num_rings_to_move - 1, pegs, use_peg, to_peg, from_peg, result);
+	}
+}
+
+vector<vector<int>> ComputeTowerHanoi(int num_rings) {
+	vector<stack<int>> pegs(3, stack<int>());
+
+	for (int i = kNumPegs; i > 0; i--) {
+		pegs[0].push(i);
+	}
+
+	vector<vector<int>> res;
+	ComputeTowerHanoiSteps(kNumPegs, pegs, 0, 1, 2, result);
+	return result;
+}
