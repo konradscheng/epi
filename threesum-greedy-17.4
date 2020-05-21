@@ -1,0 +1,11 @@
+bool HasThreeSum(vector<int> A, int t) {
+	sort(A.begin(), A.end());
+
+	for (int i = 0; i < A.size(); i++) {
+		if (HasTwoSum(A, t - A[i])) {
+			return true;
+		}
+	}
+
+	return false;
+}
