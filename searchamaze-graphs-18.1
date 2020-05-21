@@ -1,0 +1,68 @@
+typedef enum {WHITE, BLACK} Color;
+
+struct Coordinate {
+	bool operator==(Coordinate& that) {
+		return x == that.x  && y  == that.y;
+	}
+
+	int x;
+	int y;
+}
+
+bool isValid(vector<vector<Color>>& maze, Coordinate& c) {
+	if (maze[c.x][c.y] == BLACK || c.x < 0 || c.y < 0 || c.x > maze[0].size() - 1 || c.y > maze.size() -  1) {
+		return false;
+	}
+
+	return true;
+}
+
+bool searchHelper(vector<vector<Color>>& maze, Coordinate& s, Coordinate& e, vector<Coordinate> res) {
+	if (!isValid(maze, s)) {
+		return false;
+	}
+
+	res.push_back(s);
+
+	Coordinate up = s;
+	up.y++;
+
+	if (searchHelper(maze, up, e, res)) {
+		return true;
+	}
+
+	Coordinate down = s;
+	down.y--;
+
+	if (searchHelper(maze, down, e, res)) {
+		return true;
+	}
+
+	Coordinate left = s;
+	left.x--;
+
+	if (searchHelper(maze, left, e, res)) {
+		return true;
+	}
+
+	Coordinate right = s;
+	right.x++;
+
+	if (searchHelper(maze, right, e, res)) {
+		return true;
+	}
+
+	res.pop_back();
+	return false;
+}
+
+vector<Coordinate> SearchMaze(vector<vector<Color>>& maze, Coordinate& s, Coordinate& e) {
+
+	vector<Coordinate> res;
+
+	if (searchHelper(maze, s, e, res)) {
+		return res;
+	}
+
+	return {};
+}
