@@ -1,0 +1,19 @@
+int FindNearestRepetition(vector<string>& paragraph) {
+	map<string, int> words;
+
+	int minDist = INT_MAX;
+
+	for (int i = 0; i < paragraph.size(); i++) {
+		if (words.find(paragraph[i]) != words.end()) {
+			if (i - words[paragraph[i]] < minDist) {
+				minDist = i - words[paragraph[i]];
+			}
+
+			words[paragraph[i]] = i;
+		} else {
+			words.insert(pair<string, int> (words[paragraph[i]], i));
+		}
+	}
+
+	return minDist;
+}
