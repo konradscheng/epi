@@ -1,0 +1,20 @@
+void MergeTwoSortedArrays(vector<int>& A, int m, vector<int>& B. int n) {
+	int writeIdx = m + n - 1;
+
+	while (m >= 0 && n >= 0) {
+		if (A[m] > A[n]) {
+			A[writeIdx] = A[m];
+			m--;
+		} else {
+			A[writeIdx] = B[n];
+			n--;
+		}
+
+		writeIdx--;
+	}
+
+	while (n >= 0) {
+		A[writeIdx] = B[n];
+		n--;
+	}
+}
