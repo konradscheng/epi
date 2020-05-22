@@ -1,0 +1,53 @@
+void swap(int *a, int *b) { 
+    int temp = *a; 
+    *a = *b; 
+    *b = temp; 
+} 
+  
+int partition(vector<int>& A, int l, int r) { 
+    int x = A[r];
+    int i = l; 
+    for (int j = l; j < r; j++) { 
+        if (A[j] <= x) { 
+            swap(A[i], A[j]); 
+            i++; 
+        } 
+    } 
+    swap(A[i], A[r]); 
+    return i; 
+} 
+  
+int randomPartition(vector<int>& A, int l, int r) { 
+    int n = r - l + 1; 
+    int pivot = rand() % n; 
+    swap(A[l + pivot], A[r]); 
+    return partition(A, l, r); 
+}
+
+// This function returns k'th smallest element in arr[l..r] using 
+// QuickSort based method. ASSUMPTION: ELEMENTS IN ARR[] ARE DISTINCT 
+int kthSmallest(vector<int>& A, int l, int r, int k) { 
+    // If k is smaller than number of elements in array 
+    if (k > 0 && k <= r - l + 1) { 
+        // Partition the array around a random element and 
+        // get position of pivot element in sorted array 
+        int pos = randomPartition(A, l, r); 
+  
+        // If position is same as k 
+        if (pos - l == k - 1) 
+            return A[pos]; 
+        if (pos-l > k-1)  // If position is more, recur for left subarray 
+            return kthSmallest(A, l, pos - 1, k); 
+  
+        // Else recur for right subarray 
+        return kthSmallest(A, pos + 1, r, k - pos + l - 1); 
+    } 
+  
+    // If k is more than the number of elements in the array 
+    return INT_MAX; 
+}
+
+int FindKthLargest(int k, vector<int>& A) {
+	int targetIndex = A.size() - k;
+	return kthSmallest(A, 0, A.size() - 1, targetIndex); // kthLargest is just n-kthSmallest
+}
