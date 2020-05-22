@@ -1,0 +1,33 @@
+int getDepth(TreeNode* node) {
+	int depth = 0;
+	while (node->parent) {
+		depth++;
+		node = node->parent;
+	}
+
+	return depth;
+}
+
+TreeNode* LCA(TreeNode* node_0, TreeNode* node_1) {
+	int node_0_depth = getDepth(node_0);
+	int node_1_depth = getDepth(node_1);
+
+	if (node_0_depth < node_1_depth) {
+		while (node_0_depth < node_1_depth) {
+			node_1_depth--;
+			node_1 = node_1->parent;
+		}
+	} else if (node_0_depth > node_1_depth) {
+		while (node_0_depth > node_1_depth) {
+			node_0_depth--;
+			node_0 = node_0->parent;
+		}
+	}
+
+	while (node_0 != node_1) {
+		node_0 = node_0->parent;
+		node_1 = node_1->parent;
+	}
+
+	return node_0;
+}
