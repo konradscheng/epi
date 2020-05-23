@@ -1,3 +1,15 @@
+void helper(TreeNode * node, int k, vector<int>& res) {
+	if (node && res.size() < k) {
+		helper(node->right, k, res);
+		if (res.size() < k) {
+			res.push_back(node->val);
+			helper(node->left, k, res);
+		}
+	}
+}
+
 vector<int> FindKLargestInBST(TreeNode * root, int k) {
-	
+	vector<int> res;
+	helper(root, k, res);
+	return res;
 }
