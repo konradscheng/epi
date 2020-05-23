@@ -1,0 +1,28 @@
+int TransformString(set<string> D, string& s, string& t) {
+	Queue<pair<string, int>> q;
+
+	q.push(pair<string, int> (s, 0));
+	D.remove(s);
+
+	while (!q.empty()) {
+		pair<string, int> front = q.front();
+		q.pop();
+
+		if (front.first == t) {
+			return front.second;
+		}
+
+		for (int i = 0; i < front.length(); i++) {
+			for (int j = 0; j < 26; j++) {
+				string temp = front.first;
+				temp[i] = 'a' + j;
+				if (D.find(temp) != D.end()) {
+					q.push(pair<string, int> (temp, front.second + 1));
+					D.remove(temp);
+				}
+			}
+		}
+	}
+
+	return -1;
+}
