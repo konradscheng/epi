@@ -1,0 +1,19 @@
+int kMPG = 20;
+
+int FindAmpleCity(vector<int>& gallons, vector<int>& distances) {
+	int remainingGallons = 0;
+
+	int minCity = -1;
+	int minRemGals = INT_MAX;
+
+	for (int i = 1; i <= gallons.size(); i++) {
+		remainingGallons += gallons[i - 1] - distance[i - 1] / kMPG;
+
+		if (remainingGallons < minRemGals) {
+			minCity = i;
+			minRemGals = remainingGallons;
+		}
+	}
+
+	return minCity;
+}
