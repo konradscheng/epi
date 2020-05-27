@@ -1,0 +1,22 @@
+unordered_map<int, int> Map;
+
+TreeNode* build(int preStart, int preEnd, vector<int>& preorder, int inStart, int inEnd, vector<int>& inorder) {
+    if (preStart > preEnd) {
+        return nullptr;
+    }
+    
+    int index = Map[preorder[preStart]];
+    TreeNode* root = new TreeNode(inorder[index]);
+    root->left = build(preStart + 1, preStart + index - inStart, preorder, inStart, index - 1, inorder);
+    root->right = build(preStart + index - inStart + 1, preEnd, preorder, index + 1, inEnd, inorder);
+    return root;
+    
+}
+
+TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+    for (int i = 0; i < inorder.size(); i++) {
+        Map[inorder[i]] = i;
+    }
+  
+    return build(0, preorder.size() - 1, preorder,  0, inorder.size() - 1, inorder);
+}
