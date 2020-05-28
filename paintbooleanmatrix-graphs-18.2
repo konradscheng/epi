@@ -1,0 +1,44 @@
+void FlipColor(int x, int y, vector<deque<bool>>& A) {
+	bool color = A[x][y];
+
+	queue<pair<int, int>> q;
+	set<pair<int, int>> visited;
+
+	q.push(pair<int, int> (x, y));
+	visited.insert(pair<int, int> (x, y));
+
+	while (!q.empty()) {
+		auto top = q.top();
+		q.pop();
+
+		if (A[top.first][top.second] != color && visited.find(top) != visited.end()) {
+			continue;
+		}
+
+		if (A[top.first][top.second] == 1) {
+			A[top.first][top.second] = 0;
+		} else {
+			A[top.first][top.second] = 1;
+		}
+
+		if (top.first - 1 >= 0 && visited.find(pair<int, int> (top.first - 1, top.second)) == visited.end()) {
+			visited.insert(pair<int, int> (top.first - 1, top.second));
+			q.push(pair<int, int> (top.first - 1, top.second));
+		}
+
+		if (top.second - 1 >= 0 && visited.find(pair<int, int> (top.first, top.second - 1)) == visited.end()) {
+			visited.insert(pair<int, int> (top.first, top.second - 1));
+			q.push(pair<int, int> (top.first, top.second - 1));
+		}
+
+		if (top.first + 1 < A[0].size() && visited.find(pair<int, int> (top.first + 1, top.second)) == visited.end()) {
+			visited.insert(pair<int, int> (top.first + 1, top.second));
+			q.push(pair<int, int> (top.first + 1, top.second));
+		}
+
+		if (top.second + 1 < A.size() && visited.find(pair<int, int> (top.first, top.second + 1)) == visited.end()) {
+			visited.insert(pair<int, int> (top.first, top.second + 1));
+			q.push(pair<int, int> (top.first, top.second + 1));
+		}
+	}
+}

@@ -1,0 +1,34 @@
+map<char, vector<char>> mapping = {
+    { '2', { 'a', 'b', 'c'} },
+    { '3', { 'd', 'e', 'f'} },
+    { '4', { 'g', 'h', 'i'} },
+    { '5', { 'j', 'k', 'l'} },
+    { '6', { 'm', 'n', 'o'} },
+    { '7', { 'p', 'q', 'r', 's'} },
+    { '8', { 't', 'u', 'v'} },
+    { '9', { 'w', 'x', 'y', 'z'} },
+};
+
+void helper(string curr, string digits, vector<string>& res) {
+    if (curr.length() == digits.length()) {
+        res.push_back(curr);
+        return;
+    }
+    
+    for (int i = 0; i < mapping[digits[curr.length()]].size(); i++) {
+        curr += mapping[digits[curr.length()]][i];
+        helper(curr, digits, res);
+        curr = curr.substr(0, curr.length() - 1);
+    }
+}
+
+vector<string> letterCombinations(string digits) {
+    vector<string> res;
+    
+    if (digits == "") {
+        return res;
+    }
+    
+    helper("", digits, res);
+    return res;
+}
