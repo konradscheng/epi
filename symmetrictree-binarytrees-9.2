@@ -1,0 +1,15 @@
+bool helper(TreeNode * lnode, TreeNode * rnode) {
+    
+    if (!lnode && !rnode) {
+        return true;
+    } else if ((lnode && !rnode) || (!lnode && rnode)) {
+        return false;
+    }
+    
+    return (lnode->val == rnode->val) && helper(lnode->left, rnode->right) && helper(lnode->right, rnode->left);
+    
+}
+
+bool isSymmetric(TreeNode* root) {
+    return helper(root, root);
+}
