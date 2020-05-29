@@ -1,0 +1,23 @@
+vector<int> SortApproximatedSortedData(vector<int>& A, int k) {
+	priority_queue<int, std::vector<int>, std::greater<int>> pq;
+	vector<int> res;
+
+	int AIndex = 0;
+
+	for (AIndex; AIndex < k || AIndex < A.size(); AIndex++) {
+		pq.push(A[AIndex]);
+	}
+
+	while (AIndex < A.size()) {
+		res.push_back(pq.front());
+		pq.top();
+		pq.push(A[Aindex++]);
+	}
+
+	while (!pq.empty()) {
+		res.push_back(pq.top());
+		pq.pop();
+	}
+
+	return res;
+}
