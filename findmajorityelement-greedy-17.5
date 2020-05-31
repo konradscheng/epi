@@ -1,0 +1,19 @@
+int majorityElement(vector<int>& nums) {
+    int majorityCount = 1;
+    int majorityElement = nums[0];
+    
+    for (int i = 1; i < nums.size(); i++) {
+        if (majorityElement == nums[i]) {
+            majorityCount++;
+        } else {
+            majorityCount--;
+            
+            if (majorityCount == 0) {
+                majorityCount = 1;
+                majorityElement = nums[i];
+            }
+        }
+    }
+    
+    return majorityElement;
+}
