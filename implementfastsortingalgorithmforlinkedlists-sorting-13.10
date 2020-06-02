@@ -1,0 +1,19 @@
+ListNode* StableSortList(ListNode* L) {
+	if (!L || !L->next) {
+		return L;
+	}
+
+	ListNode* slow_prev = slow;
+	ListNode* slow = L;
+	ListNode* fast = L;
+
+	while (fast && fast->next) {
+		prev = slow;
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+
+	slow_prev->next = nullptr;
+
+	return MergeTwoSortedLists(StableSortList(slow), StableSortList(L));
+}
