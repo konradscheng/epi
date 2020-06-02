@@ -1,0 +1,27 @@
+TreeNode* LCA(TreeNode* node_0, TreeNode* node_1) {
+	set<TreeNode*> seen;
+
+	while (node_0 != node_1) {
+		if (node_0) {
+			if (seen.find(node_0) != seen.end()) {
+				return node_0;
+			} else {
+				seen.insert(node_0);
+			}
+
+			node_0 = node_0->parent;
+		}
+
+		if (node_0) {
+			if (seen.find(node_0) != seen.end()) {
+				return node_0;
+			} else {
+				seen.insert(node_0);
+			}
+
+			node_1 = node_1->parent;
+		}
+	}
+
+	return nullptr;
+}
