@@ -1,0 +1,39 @@
+vector<int> InorderTraversal(TreeNode* tree) {
+	TreeNode* curr;
+	TreeNode* prev;
+	vector<int> res;
+
+	while (curr != nullptr) {
+
+		TreeNode* next;
+
+		if (curr->parent == prev) {
+			if (curr->left) {
+				curr = curr->left;
+			} else {
+				res.push_back(curr->val);
+
+				if (curr->right) {
+					next = curr->right;
+				} else {
+					next = curr->parent;
+				}
+			}
+		} else if (curr->left == prev) {
+			res.push_back(curr->val);
+
+			if (curr->right) {
+				next = curr->right;
+			} else {
+				next = curr->parent;
+			}
+		} else {
+			next = curr->parent;
+		}
+
+		prev = curr;
+		curr = next;
+	}
+
+	return res;
+}
