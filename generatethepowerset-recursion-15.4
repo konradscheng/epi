@@ -1,0 +1,19 @@
+void helper(vector<int>& nums, vector<int>& curr, int index, vector<vector<int>>& res) {
+    if (index == nums.size()) {
+        res.push_back(curr);
+        return;
+    }
+    
+    curr.push_back(nums[index]);
+    helper(nums, curr, index + 1, res);
+    curr.pop_back();
+    helper(nums, curr, index + 1, res);
+    
+}
+
+vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> res;
+    vector<int> temp;
+    helper(nums, temp, 0, res);
+    return res;
+}

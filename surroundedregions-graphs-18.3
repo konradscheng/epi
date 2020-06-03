@@ -1,0 +1,42 @@
+void dfs(vector<vector<char>>& board, int i, int j, set<pair<int, int>>& notflip) {
+    if (!(i >= 0 && i < board.size() && j >= 0 && j < board[0].size()) || board[i][j] == 'X' || notflip.find(pair<int, int> (i, j)) != notflip.end()) {
+        return;
+    }
+    
+    notflip.insert(pair<int, int> (i, j));
+    
+    dfs(board, i + 1, j, notflip);
+    dfs(board, i - 1, j, notflip);
+    dfs(board, i, j + 1, notflip);
+    dfs(board, i, j - 1, notflip);
+}
+
+void solve(vector<vector<char>>& board) {
+    
+    
+    if (board.size() == 0) {
+        return;
+    }
+    
+    set<pair<int, int>> notflip;
+    
+    for (int i = 0; i < board.size(); i++) {
+        dfs(board, i, 0, notflip);
+        dfs(board, i, board[0].size() - 1, notflip);
+    }
+    
+    for (int i = 0; i < board[0].size(); i++) {
+        dfs(board, 0, i, notflip);
+        dfs(board, board.size() - 1, i, notflip);
+    }
+    
+    for (int i = 0; i < board.size(); i++) {
+        for (int j = 0; j < board[i].size(); j++) {
+            if (board[i][j] == 'O' && notflip.find(pair<int, int> (i, j)) == notflip.end()) {
+                board[i][j] = 'X';
+            }
+        }
+    }
+    
+    return;
+}
