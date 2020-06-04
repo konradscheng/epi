@@ -1,0 +1,37 @@
+string convert(string s, int numRows) {
+    
+    if (numRows == 1) {
+        return s;
+    }
+    
+    vector<vector<char>> levels (numRows, vector<char>());
+    
+    bool down = true;
+    int level = 0;
+    
+    for (int i = 0;  i < s.length(); i++) {
+        levels[level].push_back(s[i]);
+        
+        if (down) {
+            level++;
+        } else {
+            level--;
+        }
+        
+        if (level == numRows - 1 || level == 0) {
+            down = !down;
+        }
+    }
+    
+    string res;
+    
+    for (int i = 0; i < levels.size(); i++) {
+        for (int j = 0; j < levels[i].size(); j++) {
+            res += levels[i][j];
+        }
+    }
+    
+    return res;
+}
+
+//there's a more efficient solution that doesn't require an additional vector
