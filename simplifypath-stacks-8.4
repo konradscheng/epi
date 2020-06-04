@@ -1,0 +1,50 @@
+string simplifyPath(string path) {
+    
+    string dir;
+    vector<string> filepath;
+    
+    for (int i = 1;  i < path.length(); i++) {
+        if (path[i] != '/') {
+            dir += path[i];
+        } else if (path[i] == '/' && dir != "") {
+            
+            if (dir == ".") {
+                dir = "";
+            } else if (dir == "..") {
+                cout << dir << endl;
+                if (!filepath.empty()) {
+                   filepath.pop_back(); 
+                }
+            } else {
+                filepath.push_back(dir);
+            }
+            
+            dir = "";
+        }
+    }
+    
+    if (dir == "..") {
+        cout << dir << endl;
+        if (!filepath.empty()) {
+           filepath.pop_back(); 
+        }
+    } else if (dir != "" && dir != ".") {
+        filepath.push_back(dir);
+    }
+
+    string res = "/";
+    
+    if (filepath.empty()) {
+        return res;
+    }
+    
+    for (int i = 0; i < filepath.size() - 1; i++) {
+        res += (filepath[i] + "/");
+    }
+    
+    if (!filepath.empty()) {
+        res += filepath[filepath.size() - 1];
+    }
+
+    return res;
+}
