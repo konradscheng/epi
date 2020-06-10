@@ -1,0 +1,40 @@
+int LongestContainedRange(const vector<int>& A) {
+
+	unordered_set<int> values;
+
+	for (int i = 0; i < A.size(); i++) {
+		value_to_index.insert(A[i]);
+	}
+
+	int maxCount = INT_MIN;
+
+	while (!values.empty()) {
+		
+		int count = 0;
+
+		int value = *(values.begin());
+		values.remove(value);
+
+		int minOne = value -  1;
+
+		while (values.count(minOne)) {
+			++count;
+			values.remove(minOne);
+			--minOne;
+		}
+
+		int plusOne = value + 1;
+
+		while (values.count(plusOne)) {
+			++count;
+			values.remove(plusOne);
+			++plusOne;
+		}
+
+		if (count > maxCount) {
+			maxCount = count;
+		}
+	}
+
+	return maxCount;
+}

@@ -1,0 +1,34 @@
+struct Person {
+	int age;
+	string name;
+}
+
+void GroupByAge(vector<Person>& people) {
+	map<int, int> age_count;
+
+	for (auto person : people) {
+		age_count[person.age]++;
+	}
+
+	int offset = 0;
+	map<int, int> age_to_offset;
+	for (auto pair : age_count) {
+		age_to_offset[pair.first] = offset;
+		offset += pair.second;
+	}
+
+	while (!age_count.empty()) {
+		auto from = age_to_offset.begin(); //first pair
+		auto to = age_to_offset.find(people[from->second].age); //pair containing offset of where age should be
+		swap(people[from->second], people[to->second]);
+
+		--age_count[to->first];
+
+		if (age_count[to->first] > 0) {
+			++to->second;
+		} else {
+			age_to_offset.erase(to);
+		}
+		
+	}
+}
